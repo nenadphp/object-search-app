@@ -127,7 +127,6 @@
 
 <script>
 import axios from 'axios'
-
 import Loader from '../layout/Loader.vue'
 import Alert from '../layout/Alert.vue'
 
@@ -153,6 +152,7 @@ export default {
     methods: {
         handleSubmit() {
             if (!this.validateInputs()) {
+                // Small Example of form validation
                 return false;
             }
 
@@ -160,7 +160,7 @@ export default {
             this.data = []
             this.nameError = ''
             this.noResultMessage = ''
-            console.log()
+
             axios.get(import.meta.env.VITE_APP_AXIOS_BASE_URL + '/api/property/search', {
                 params: {
                     'name': this.name,
@@ -184,7 +184,7 @@ export default {
             })
         },
         validateInputs () {
-            // Small Example of form validation, anyway we have also validate data on server side
+            // Small Example of form validation
             if (!this.name.length) {
                 this.nameError = 'Name is is required';
                 return false;

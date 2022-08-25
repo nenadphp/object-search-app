@@ -31,6 +31,5 @@ class PropertySearchController extends Controller
 
             throw new PropertySearchControllerException($message);
         }
-
     }
 }

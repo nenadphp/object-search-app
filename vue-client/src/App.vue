@@ -6,7 +6,6 @@ import PropertySearch from './components/property/PropertySearch.vue'
 import HeaderNavigation from './components/layout/HeaderNavigation.vue'
 import "bootstrap/dist/css/bootstrap.min.css"
 
-
 const routes = {
     '/': Home,
     '/home': Home,
@@ -28,4 +27,3 @@ const currentView = computed(() => {
     <HeaderNavigation/>
     <component :is="currentView" />
 </template>
-

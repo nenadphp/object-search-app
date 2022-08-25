@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Property;
 use App\Repositories\Interfaces\PropertyRepositoryInterface;
-use App\Traits\ConcatenateCacheKeysTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -20,17 +19,15 @@ class PropertyRepository implements PropertyRepositoryInterface
      */
     public function getPropertyByTerms(array $terms): Collection
     {
-        $cleanedTerms = array_filter($terms,function ($term){
+        $cleanedTerms = array_filter($terms, function ($term){
             return strcasecmp($term, '0') !== 0;
         });
 
         $cacheKey = implode('-', $terms);
 
-//        if ($cache = Cache::get($cacheKey)) {
-//            logger('cachs');
-//
-//            return $cache;
-//        }
+        if ($cache = Cache::get($cacheKey)) {
+            return $cache;
+        }
 
         $query = Property::where('name', 'like', '%' . $terms['name'] . '%');
         if (isset($cleanedTerms['bedrooms'])) {
@@ -57,12 +54,9 @@ class PropertyRepository implements PropertyRepositoryInterface
             $query->where('price', '<=', $terms['priceMax']);
         }
 
-        logger($query->toSql());
-
         $data = $query->get();
-
         Cache::add($cacheKey, $data, self::VALIDITY);
-        logger($cacheKey);
+
         return $data;
     }
 }
