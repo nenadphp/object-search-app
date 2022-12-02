@@ -1,6 +1,6 @@
 ## Steps for staring projects
 
-### Clone project from repo : https://github.com/nenadphp/laravel-test.git
+### Clone project from repo : https://github.com/nenadphp/object-search-app.git
 
 ### cd root of project 
 
